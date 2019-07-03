@@ -35,11 +35,12 @@ function CheckboxWidget(props) {
             required={required}
             disabled={disabled || readonly}
             autoFocus={autofocus}
-            onChange={event =>
-              onBlur
-                ? onBlur(id, event.target.checked)
-                : onChange(event.target.checked)
-            }
+            onChange={event => {
+              onChange(event.target.checked);
+              if (onBlur) {
+                onBlur(id, event.target.checked);
+              }
+            }}
           />
         }
         label={label}
