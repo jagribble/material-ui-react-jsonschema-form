@@ -36,7 +36,9 @@ function CheckboxWidget(props) {
             disabled={disabled || readonly}
             autoFocus={autofocus}
             onChange={event =>
-              onBlur ? onBlur(event.target) : onChange(event.target.checked)
+              onBlur
+                ? onBlur(id, event.target.checked)
+                : onChange(event.target.checked)
             }
           />
         }
