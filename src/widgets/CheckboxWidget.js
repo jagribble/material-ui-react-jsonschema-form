@@ -18,6 +18,7 @@ function CheckboxWidget(props) {
     rawErrors,
     autofocus,
     onChange,
+    onBlur = false,
   } = props;
 
   return (
@@ -34,7 +35,11 @@ function CheckboxWidget(props) {
             required={required}
             disabled={disabled || readonly}
             autoFocus={autofocus}
-            onChange={event => onChange(event.target.checked)}
+            onChange={event =>
+              onBlur
+                ? onBlur(event.target.checked)
+                : onChange(event.target.checked)
+            }
           />
         }
         label={label}
