@@ -13,7 +13,7 @@ function RangeWidget(props) {
     //readonly,
     //disabled,
     //autofocus,
-    //onBlur,
+    onBlur = false,
     //onFocus,
     options,
     schema,
@@ -44,7 +44,7 @@ function RangeWidget(props) {
       </Grid>
       <Grid container alignItems="flex-end" style={{ padding: "16px" }}>
         <Grid item xs>
-          <Slider {...sliderProps} onChange={_onChange} />
+          <Slider {...sliderProps} onChange={onBlur ? onBlur : _onChange} />
         </Grid>
         <Grid item>
           <Typography>{value}</Typography>

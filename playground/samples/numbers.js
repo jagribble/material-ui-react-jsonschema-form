@@ -54,7 +54,7 @@ module.exports = {
     },
   },
   formData: {
-    number: 3.14,
+    number: 0.14,
     integer: 42,
     numberEnum: 2,
     integerRange: 42,
