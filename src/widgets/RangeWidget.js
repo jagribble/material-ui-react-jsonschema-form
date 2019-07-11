@@ -44,7 +44,15 @@ function RangeWidget(props) {
       </Grid>
       <Grid container alignItems="flex-end" style={{ padding: "16px" }}>
         <Grid item xs>
-          <Slider {...sliderProps} onChange={onBlur ? onBlur : _onChange} />
+          <Slider
+            {...sliderProps}
+            onChange={event => {
+              _onChange(event);
+              if (onBlur) {
+                onBlur(id, event);
+              }
+            }}
+          />
         </Grid>
         <Grid item>
           <Typography>{value}</Typography>
