@@ -49,7 +49,7 @@ function RangeWidget(props) {
             onChange={event => {
               _onChange(event);
               if (onBlur) {
-                onBlur(id, event);
+                onBlur(id, event.yarget.value);
               }
             }}
           />
