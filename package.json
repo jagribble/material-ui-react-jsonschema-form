@@ -1,6 +1,6 @@
 {
   "name": "material-ui-react-jsonschema-form-test",
-  "version": "0.2.0",
+  "version": "0.3.1",
   "description": "A simple React component capable of building HTML forms out of a JSON schema based on the Material UI React library. Primary dependency is Mozilla react-jsonschema-form",
   "scripts": {
     "build:readme": "toctoc README.md -w",
@@ -54,7 +54,7 @@
     "prop-types": "^15.5.8",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
-    "react-jsonschema-form": "git+https://github.com/mozilla-services/react-jsonschema-form.git#3ad664d085c4d3b5f8c2599036b0e1d3a538f39a"
+    "react-jsonschema-form": "^1.8.0"
   },
   "devDependencies": {
     "atob": "^2.0.3",

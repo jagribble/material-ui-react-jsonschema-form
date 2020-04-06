@@ -146,6 +146,9 @@ class SelectWidget extends React.Component {
           }
           onChange={event => {
             onChange(processValue(schema, event.target.value));
+          }}
+          onClose={event => {
+            onChange(processValue(schema, event.target.value));
           }}>
           {!multiple && !schema.default && (
             <MenuItem value="">{placeholder ? placeholder : "Select"}</MenuItem>
