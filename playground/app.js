@@ -3,8 +3,8 @@ import { render } from "react-dom";
 //import classNames from 'classnames';
 import { UnControlled as CodeMirror } from "react-codemirror2";
 import "codemirror/mode/javascript/javascript";
-import { withStyles, createStyles } from "@material-ui/core/styles";
-import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import {
   List,
   ListItem,
@@ -77,95 +77,94 @@ const uiTheme = createMuiTheme({
 
 const drawerWidth = 240;
 
-const styles = theme =>
-  createStyles({
-    root: {
-      display: "flex",
+const styles = theme => ({
+  root: {
+    display: "flex",
+  },
+  toolbar: {
+    paddingRight: 24, // keep right padding when drawer closed
+    ...theme.mixins.toolbar,
+  },
+  toolbarIcon: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    padding: "0 8px",
+    ...theme.mixins.toolbar,
+  },
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(["width", "margin"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
+  appBarShift: {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(["width", "margin"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  menuButton: {
+    marginLeft: 12,
+    marginRight: 36,
+  },
+  menuButtonHidden: {
+    display: "none",
+  },
+  title: {
+    flexGrow: 1,
+    fontFamily: "PrimeLight",
+    fontWeight: "bold",
+    fontSize: "18px",
+    letterSpacing: "18px",
+    marginTop: ".25em",
+    verticalAlign: "center",
+  },
+  "field-array": {
+    padding: "32px",
+  },
+  drawer: {
+    flexShrink: 0,
+  },
+  drawerPaper: {
+    position: "relative",
+    whiteSpace: "nowrap",
+    width: drawerWidth,
+    transition: theme.transitions.create("width", {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  drawerPaperClose: {
+    overflowX: "hidden",
+    transition: theme.transitions.create("width", {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    width: theme.spacing.unit * 7,
+    [theme.breakpoints.up("sm")]: {
+      width: theme.spacing.unit * 9,
     },
-    toolbar: {
-      paddingRight: 24, // keep right padding when drawer closed
-      ...theme.mixins.toolbar,
-    },
-    toolbarIcon: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "flex-end",
-      padding: "0 8px",
-      ...theme.mixins.toolbar,
-    },
-    appBar: {
-      zIndex: theme.zIndex.drawer + 1,
-      transition: theme.transitions.create(["width", "margin"], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-    },
-    appBarShift: {
-      marginLeft: drawerWidth,
-      width: `calc(100% - ${drawerWidth}px)`,
-      transition: theme.transitions.create(["width", "margin"], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-    },
-    menuButton: {
-      marginLeft: 12,
-      marginRight: 36,
-    },
-    menuButtonHidden: {
-      display: "none",
-    },
-    title: {
-      flexGrow: 1,
-      fontFamily: "PrimeLight",
-      fontWeight: "bold",
-      fontSize: "18px",
-      letterSpacing: "18px",
-      marginTop: ".25em",
-      verticalAlign: "center",
-    },
-    "field-array": {
-      padding: "32px",
-    },
-    drawer: {
-      flexShrink: 0,
-    },
-    drawerPaper: {
-      position: "relative",
-      whiteSpace: "nowrap",
-      width: drawerWidth,
-      transition: theme.transitions.create("width", {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-    },
-    drawerPaperClose: {
-      overflowX: "hidden",
-      transition: theme.transitions.create("width", {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-      width: theme.spacing.unit * 7,
-      [theme.breakpoints.up("sm")]: {
-        width: theme.spacing.unit * 9,
-      },
-    },
-    content: {
-      flexGrow: 1,
-      padding: theme.spacing.unit * 3,
-      height: "100vh",
-      overflow: "auto",
-    },
-    chartContainer: {
-      marginLeft: -22,
-    },
-    tableContainer: {
-      height: 320,
-    },
-    logo: {
-      maxHeight: "42px",
-    },
-  });
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing.unit * 3,
+    height: "100vh",
+    overflow: "auto",
+  },
+  chartContainer: {
+    marginLeft: -22,
+  },
+  tableContainer: {
+    height: 320,
+  },
+  logo: {
+    maxHeight: "42px",
+  },
+});
 
 const log = type => console.log.bind(console, type);
 const fromJson = json => JSON.parse(json);
@@ -478,7 +477,7 @@ class _App extends Component {
       transformErrors,
     } = this.state;
 
-    let { classes } = this.props;
+    const { classes } = this.props;
 
     return (
       <div className={classes.root}>
@@ -584,14 +583,14 @@ class _App extends Component {
 function withRoot(Component) {
   function WithRoot(props) {
     return (
-      <MuiThemeProvider theme={uiTheme}>
+      <ThemeProvider theme={uiTheme}>
         <CssBaseline />
         <Component {...props} />
-      </MuiThemeProvider>
+      </ThemeProvider>
     );
   }
   return WithRoot;
 }
 
-let App = withRoot(withStyles(styles)(_App));
+let App = withRoot(withStyles(styles, { withTheme: true })(_App));
 render(<App />, document.getElementById("app"));
