@@ -32,6 +32,16 @@ module.exports = {
         title: "Telephone",
         minLength: 10,
       },
+      multiple: {
+        type: "array",
+        description: "States to wait for",
+        default: [],
+        items: {
+          type: "string",
+          enum: ["asd", "fegb"],
+        },
+        uniqueItems: true,
+      },
     },
   },
   uiSchema: {
